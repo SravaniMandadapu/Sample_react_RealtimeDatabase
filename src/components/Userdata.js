@@ -39,18 +39,18 @@ class Userdata extends Component {
     
     render() {
          const users=this.state.userslist
-        
+         
         return (
         <React.Fragment>
         <Container>
-        
+        <h3>User data</h3>
         <table border="1">
             
         <tr>
           <th>Username</th>
           <th>Email</th>
         </tr>
-         {Object.keys(users).map(id=>
+         { this.state.userslist ? Object.keys(users).map(id=>
          // Display data in list format
         //  <ol>
         //     <li>{users[id].username}  {users[id].email}</li> 
@@ -58,13 +58,13 @@ class Userdata extends Component {
          
               
               <tr>
-                  <td>{users[id].username}</td>
-                  <td>{users[id].email}</td>
+                  <td key={users[id].username}>{users[id].username}</td>
+                  <td key={users[id].email}>{users[id].email}</td>
               </tr>
              
         
            
-         )}  
+         ):null}  
         </table>
         </Container>
         </React.Fragment>

@@ -12,6 +12,7 @@ import { Component } from 'react'
   
   render() {
     return (
+
       <Navbar bg="primary" variant="dark" sticky="top">
       <Navbar.Brand href="http://localhost:3000" expand="lg">Sample_App</Navbar.Brand>
       <Nav className="elements">
@@ -20,6 +21,7 @@ import { Component } from 'react'
 
         <Nav.Link href="http://localhost:3000/postdata"><Button size="lg">Post Userdata</Button></Nav.Link>
         <Nav.Link href="http://localhost:3000/update"><Button size="lg">Update Userdata</Button></Nav.Link> 
+        <Nav.Link href="http://localhost:3000/delete"><Button size="lg">Delete User using email</Button></Nav.Link> 
 
         
       

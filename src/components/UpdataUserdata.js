@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import database from "../config"
-import {Form,Button,FormGroup,FormControl, Container} from "react-bootstrap"
+import {Form,Button,FormGroup,FormControl, Container,Toast} from "react-bootstrap"
 
 class UpdataUserdata extends Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class UpdataUserdata extends Component {
         this.state = {
              email: undefined,
              username: undefined,
-             userdata: undefined
+             userdata: undefined,
+             toastMSg:""
         }
         this.usernameChangeHandler=this.usernameChangeHandler.bind(this)
         this.emailChangeHandler=this.emailChangeHandler.bind(this)
@@ -46,11 +47,26 @@ class UpdataUserdata extends Component {
 
                 // console.log(users[key])
                 //  console.log(this.state.userdata)
-               if(users[key].email===((this.state.userdata).email)){
-                   database.ref("users/"+ key).update(userdata,(err,userdata)=>{
-                   if(err) return console.log(err)
-                    else return console.log("data saved successfully")
+               if(users[key].email===((this.state.email))){
+                   console.log(userdata)
+                   database.ref("users/"+ key).update(userdata)
+                   .catch(err=>{
+                       this.setState({
+                           toastMSg:err
+                       }
+                       )
+
+                    //console.log(err)
                  })
+                    .then(res=>{ 
+                        this.setState({
+                            toastMSg:"User data successfully updated"
+                        })
+                        // return console.log("data updated successfully")
+                    })
+                 
+                }else{
+                    console.log("no user found")
                 }
             })
         })
@@ -64,11 +80,16 @@ class UpdataUserdata extends Component {
     render() {
         return (
         <Container>
+          {(this.state.toastMSg) ? <Toast>
+            <Toast.Body>{this.state.toastMSg}</Toast.Body>
+            </Toast>:null}
+            
+            <h3>Update UserInfo</h3>
             <Form onSubmit={this.submitHandler.bind(this)} >
                 <FormGroup>
                     <FormControl 
                     id="email"
-                    type= "text"
+                    type= "email"
                     name="email"
                     placeholder="Enter email"
                     onChange={this.emailChangeHandler}
